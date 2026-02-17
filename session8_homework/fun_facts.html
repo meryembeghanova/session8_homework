@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fun Facts About Me</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 60px;
+            background-color: #8eb3e8;
+        }
+
+        h1 {
+            color: rgb(139, 0, 32);
+        }
+
+        .fact {
+            display: none; /* Hidden at start */
+            margin: 10px;
+            padding: 10px;
+            background-color: white;
+            border-radius: 8px;
+            width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        button {
+            padding: 10px 15px;
+            margin: 10px;
+            cursor: pointer;
+        }
+
+        #counter {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Meryem Beghanova</h1>
+
+    <div class="fact">Fact 1: I love pizza 🍕</div>
+    <div class="fact">Fact 2: I enjoy studying physics ⚛️</div>
+    <div class="fact">Fact 3: I like web development 💻</div>
+    <div class="fact">Fact 4: I want to study biomedical engineering 🧬</div>
+    <div class="fact">Fact 5: I enjoy learning new languages 🌍</div>
+
+    <button id="revealBtn">Reveal Fact</button>
+    <button id="resetBtn">Reset</button>
+
+    <div id="counter">Facts revealed: 0</div>
+
+    <script>
+        let revealBtn = document.getElementById("revealBtn");
+        let resetBtn = document.getElementById("resetBtn");
+        let facts = document.querySelectorAll(".fact");
+        let counterText = document.getElementById("counter");
+
+        let currentFact = 0;
+
+        revealBtn.addEventListener("click", function() {
+            if (currentFact < facts.length) {
+                facts[currentFact].style.display = "block";
+                currentFact++;
+                counterText.textContent = "Facts revealed: " + currentFact;
+            } else {
+                counterText.textContent = "All facts revealed!";
+            }
+        });
+
+        resetBtn.addEventListener("click", function() {
+            for (let i = 0; i < facts.length; i++) {
+                facts[i].style.display = "none";
+            }
+            currentFact = 0;
+            counterText.textContent = "Facts revealed: 0";
+        });
+    </script>
+
+</body>
+</html>

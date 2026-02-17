@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Todo List</title>
+
+    <style>
+        body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+
+        .container {
+            background: white;
+            width: 380px;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        .header-img {
+            width: 100%;
+            border-radius: 15px;
+            margin-bottom: 15px;
+        }
+
+        h2 {
+            margin-bottom: 15px;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 5px;
+        }
+
+        input {
+            flex: 1;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        #addBtn {
+            background: #667eea;
+            color: white;
+        }
+
+        #addBtn:hover {
+            background: #5563c1;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 15px;
+        }
+
+        li {
+            background: #f4f4f4;
+            margin-top: 8px;
+            padding: 10px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: 0.3s;
+        }
+
+        li:hover {
+            transform: scale(1.02);
+        }
+
+        .completed {
+            text-decoration: line-through;
+            color: gray;
+            background: #e0e0e0;
+        }
+
+        .delete-btn {
+            background: crimson;
+            color: white;
+        }
+
+        .delete-btn:hover {
+            background: darkred;
+        }
+
+        .filters {
+            margin-top: 10px;
+        }
+
+        .filters button {
+            margin: 3px;
+            background: #ddd;
+        }
+
+        .counter {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .empty-message {
+            margin-top: 10px;
+            color: gray;
+            font-size: 14px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <img src="download (5).jpg" class="header-img">
+
+    <h2>My Todo List</h2>
+
+    <div class="input-group">
+        <input type="text" id="taskInput" placeholder="Add a task...">
+        <button id="addBtn">Add</button>
+    </div>
+
+    <div class="filters">
+        <button id="allBtn">All</button>
+        <button id="activeBtn">Active</button>
+        <button id="completedBtn">Completed</button>
+    </div>
+
+    <ul id="taskList"></ul>
+
+    <div class="counter" id="counter">
+        Total: 0 | Completed: 0
+    </div>
+
+    <div class="empty-message" id="emptyMessage">
+        No tasks yet ✨
+    </div>
+
+</div>
+
+<script>
+    let addBtn = document.getElementById("addBtn");
+    let taskInput = document.getElementById("taskInput");
+    let taskList = document.getElementById("taskList");
+    let counter = document.getElementById("counter");
+    let emptyMessage = document.getElementById("emptyMessage");
+
+    let allBtn = document.getElementById("allBtn");
+    let activeBtn = document.getElementById("activeBtn");
+    let completedBtn = document.getElementById("completedBtn");
+
+    let totalTasks = 0;
+    let completedTasks = 0;
+
+    function updateCounter() {
+        counter.textContent = "Total: " + totalTasks + " | Completed: " + completedTasks;
+        emptyMessage.style.display = totalTasks === 0 ? "block" : "none";
+        console.log("Counter updated");
+    }
+
+    function addTask() {
+
+        let taskText = taskInput.value.trim();
+
+        if (taskText === "") {
+            alert("Please enter a task!");
+            return;
+        }
+
+        let li = document.createElement("li");
+        li.textContent = taskText;
+
+        let deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "X";
+        deleteBtn.classList.add("delete-btn");
+
+        li.appendChild(deleteBtn);
+        taskList.appendChild(li);
+
+        totalTasks++;
+        updateCounter();
+
+        li.addEventListener("click", function(e) {
+            if (e.target === deleteBtn) return;
+
+            li.classList.toggle("completed");
+
+            if (li.classList.contains("completed")) {
+                completedTasks++;
+            } else {
+                completedTasks--;
+            }
+
+            updateCounter();
+        });
+
+        deleteBtn.addEventListener("click", function() {
+            if (li.classList.contains("completed")) {
+                completedTasks--;
+            }
+            taskList.removeChild(li);
+            totalTasks--;
+            updateCounter();
+        });
+
+        taskInput.value = "";
+    }
+
+    addBtn.addEventListener("click", addTask);
+
+    taskInput.addEventListener("keypress", function(e) {
+        if (e.key === "Enter") {
+            addTask();
+        }
+    });
+
+    allBtn.addEventListener("click", function() {
+        document.querySelectorAll("li").forEach(li => li.style.display = "flex");
+    });
+
+    activeBtn.addEventListener("click", function() {
+        document.querySelectorAll("li").forEach(li => {
+            li.style.display = li.classList.contains("completed") ? "none" : "flex";
+        });
+    });
+
+    completedBtn.addEventListener("click", function() {
+        document.querySelectorAll("li").forEach(li => {
+            li.style.display = li.classList.contains("completed") ? "flex" : "none";
+        });
+    });
+
+    updateCounter();
+
+</script>
+
+</body>
+</html>
