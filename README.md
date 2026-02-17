@@ -1,1 +1,4 @@
 # session8_homework
+
+As I understood even listener in JS is when you click the button it reacts.  JavaScript is more about making things move in a website, but python is more like a logic and data. I personally like python because i have prior knowledge in it and maybe that is why js was a bit hard for me to understand while making these projects. However, with the help of AI I could manage to understand most syntax. I asked chat gpt to explain me every line of the code in JS.
+For my second project "to do list" I would add some timer. Like you see how long you have spend doing the task. For my personal portfolio, I added a button that switches theme from light to dark theme. I also added my skill percentage counter and added words that types themselves out letter-by-letter. I think if I added more about myself and more projects and change the design it would look more professional.
